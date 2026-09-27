@@ -1346,3 +1346,26 @@ section { position: relative; }
 @media (max-height: 820px) and (min-width: 961px) {
   #states .states-top .lede, #system .section-head .lede, #product .section-head .lede { display: none; }
 }
+
+/* ==========================================================================
+   Phone polish
+   ========================================================================== */
+@media (max-width: 860px) {
+  /* Hero: give the chrome form the top of the screen, copy the bottom */
+  .hero-canvas { bottom: auto; height: 50svh; top: calc(var(--nav-h) - 8px); }
+  .hero-content { bottom: 84px; }
+  .hero-content .wrap { gap: 22px; }
+  .hero-row { gap: 22px; }
+
+  /* Threshold: shorter hold so the page doesn't sit on an empty wash */
+  .threshold { height: 165vh; }
+  .threshold-side { top: auto; bottom: 18%; }
+
+  /* Waitlist: headline sits below the wordmark baked into the photo; nothing overflows */
+  .cta-inner { padding-top: max(70svh, 540px); }
+  .cta-bg::after { background: linear-gradient(to bottom, rgba(10, 10, 11, 0.05) 0%, rgba(10, 10, 11, 0.35) 45%, rgba(10, 10, 11, 0.94) 72%); }
+  .cta-row { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .cta-row > *, .waitlist, .waitlist > * { min-width: 0; }
+  .waitlist-field { height: 58px; padding-left: 18px; }
+  .waitlist-field .btn { --h: 46px; padding-left: 16px; font-size: 13px; }
+}
