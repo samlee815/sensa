@@ -42,7 +42,7 @@ export default function ProductIntro() {
               <Button href="/#technology">See the technology</Button>
               <div className="price">
                 Expected price
-                <b>$299</b>
+                <b>$599</b>
               </div>
             </div>
           </div>

@@ -42,7 +42,7 @@ export default function Manifesto() {
           <span className="mono" style={{ color: "var(--muted)" }}>Calm</span>
           <span className="mono" style={{ color: "var(--muted)" }}>Sleep</span>
           <span className="mono" style={{ color: "var(--muted)" }}>Focus</span>
-          <span className="mono" style={{ color: "var(--muted)" }}>Connection</span>
+          <span className="mono" style={{ color: "var(--muted)" }}>Energy</span>
           <span className="mono" style={{ color: "var(--muted)" }}>Recovery</span>
         </div>
       </div>

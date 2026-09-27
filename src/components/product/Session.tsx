@@ -42,7 +42,7 @@ const GOALS = [
   { l: "Calm", c: "#9db4bf" },
   { l: "Sleep", c: "#8e88b8" },
   { l: "Focus", c: "#d9b77e" },
-  { l: "Connection", c: "#d39a8a" },
+  { l: "Energy", c: "#e0a07c" },
   { l: "Recovery", c: "#9eb09a" },
   { l: "Custom", c: "#efece7" },
 ];

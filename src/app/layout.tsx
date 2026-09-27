@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://samlee815.github.io/sensa"),
   title: "Sensa — Personal State Intelligence",
   description:
-    "Sensa is an ear-worn system that senses your state and helps you shift it — calm, sleep, focus, connection and recovery. Join the waitlist.",
+    "Sensa is an ear-worn system that senses your state and helps you shift it — calm, sleep, focus, energy and recovery. Join the waitlist.",
   openGraph: {
     title: "Sensa — Personal State Intelligence",
     description: "Feel the way you want. Anytime, anywhere.",

@@ -117,7 +117,7 @@ export default function Hero() {
             <div className="hero-row" data-reveal="intro">
               <p className="lede">
                 Sensa is an ear-worn system that reads your body’s signals and helps you shift into the state you
-                choose — calm, sleep, focus, connection or recovery.
+                choose — calm, sleep, focus, energy or recovery.
               </p>
               <div className="hero-actions">
                 <Button href="#waitlist">Join the waitlist</Button>

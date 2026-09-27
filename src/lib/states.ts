@@ -1,4 +1,4 @@
-export type StateKey = "calm" | "sleep" | "focus" | "connection" | "recovery";
+export type StateKey = "calm" | "sleep" | "focus" | "energy" | "recovery";
 
 export interface SensaState {
   key: StateKey;
@@ -55,17 +55,17 @@ export const STATES: SensaState[] = [
     wave: { freq: 2.6, amp: 0.3, speed: 1.8, harmonic: 0.35, breathe: 0.05 },
   },
   {
-    key: "connection",
-    label: "Connection",
-    color: "#d39a8a",
-    line: "Be here with the people in front of you.",
-    prompt: "“I want to actually be present tonight.”",
-    detail: "Arrive in the room — after the commute, before the dinner. Leave the day at the door.",
+    key: "energy",
+    label: "Energy",
+    color: "#e0a07c",
+    line: "Lift yourself when the day drags.",
+    prompt: "“It’s 3 p.m. and I’m running on empty.”",
+    detail: "A short, brighter session for the afternoon slump or before a workout. Upbeat sound and a livelier rhythm help you feel switched on.",
     minutes: 5,
-    intensity: 2,
-    band: "α–θ 6–10 Hz",
+    intensity: 3,
+    band: "β 15–25 Hz",
     image: "/img/skin.webp",
-    wave: { freq: 1.4, amp: 0.4, speed: 1.0, harmonic: 0.5, breathe: 0.15 },
+    wave: { freq: 3.1, amp: 0.38, speed: 2.3, harmonic: 0.42, breathe: 0.05 },
   },
   {
     key: "recovery",

@@ -123,7 +123,7 @@ export default function PHero() {
                 <span>Planned session</span>
               </div>
               <div>
-                <b>$299</b>
+                <b>$599</b>
                 <span>Expected price</span>
               </div>
             </div>
