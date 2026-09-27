@@ -44,9 +44,14 @@ Scroll reveals are declarative. Add `data-reveal="lines" | "fade" | "stagger" | 
 
 The five states (copy, colours, waveform parameters, images) live in `src/lib/states.ts`.
 
+## Contact & waitlist
+
+`src/lib/site.ts` holds the contact email and the waitlist endpoint. Signups are emailed to that address through [FormSubmit](https://formsubmit.co) (no server needed on static hosting):
+
+1. The first signup triggers an activation email from FormSubmit — click **Activate Form** once.
+2. FormSubmit then sends a random alias for the address; replace the address in `WAITLIST_ENDPOINT` with it so the email isn't in the page source.
+
 ## Before launch
 
-- **Waitlist:** `src/components/Waitlist.tsx` validates the email, then only shows a success state. Wire it to a backend (Resend, Loops, HubSpot, Airtable…).
-- **Domain:** `metadataBase` in `src/app/layout.tsx` is set to `https://sensa.ai`, a placeholder.
-- **Footer links:** the contact email and social links in `src/components/Footer.tsx` are placeholders.
+- **Domain:** set a custom domain in GitHub → Settings → Pages; the workflow updates paths and `metadataBase` automatically.
 - **Claims review:** copy follows the deck's cautious framing ("planned", "in development", general-wellness disclaimer). Have it reviewed against FDA General Wellness guidance before going live.

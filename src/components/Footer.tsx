@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { TLink } from "./Transition";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 export default function Footer() {
   const ref = useRef<HTMLElement>(null);
@@ -44,13 +45,8 @@ export default function Footer() {
           <div className="footer-col">
             <span className="mono">Company</span>
             <TLink href="/#waitlist">Join the waitlist</TLink>
-            <a href="mailto:hello@sensa.ai">hello@sensa.ai</a>
-            <a href="#" aria-disabled>
-              Instagram
-            </a>
-            <a href="#" aria-disabled>
-              LinkedIn
-            </a>
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Sensa — investor inquiry")}`}>Investors & partners</a>
           </div>
         </div>
       </div>

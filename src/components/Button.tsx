@@ -11,9 +11,10 @@ type Props = {
   type?: "button" | "submit";
   magnetic?: boolean;
   className?: string;
+  disabled?: boolean;
 };
 
-export default function Button({ children, href, variant = "primary", onClick, type = "button", magnetic = true, className = "" }: Props) {
+export default function Button({ children, href, variant = "primary", onClick, type = "button", magnetic = true, className = "", disabled = false }: Props) {
   const inner = (
     <>
       <span className="btn-label">
@@ -31,7 +32,7 @@ export default function Button({ children, href, variant = "primary", onClick, t
       {inner}
     </TLink>
   ) : (
-    <button type={type} className={cls} onClick={onClick}>
+    <button type={type} className={cls} onClick={onClick} disabled={disabled} aria-busy={disabled || undefined}>
       {inner}
     </button>
   );

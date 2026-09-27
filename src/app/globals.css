@@ -1369,3 +1369,4 @@ section { position: relative; }
   .waitlist-field { height: 58px; padding-left: 18px; }
   .waitlist-field .btn { --h: 46px; padding-left: 16px; font-size: 13px; }
 }
+.btn:disabled { opacity: 0.6; cursor: progress; }

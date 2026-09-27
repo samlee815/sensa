@@ -3,22 +3,48 @@ import { useState } from "react";
 import { STATES } from "@/lib/states";
 import Button from "./Button";
 import { Check } from "./Icons";
+import { CONTACT_EMAIL, WAITLIST_ENDPOINT } from "@/lib/site";
 
 export default function Waitlist() {
   const [email, setEmail] = useState("");
   const [picked, setPicked] = useState<string[]>(["calm"]);
   const [done, setDone] = useState(false);
   const [err, setErr] = useState("");
+  const [sending, setSending] = useState(false);
+  const [honey, setHoney] = useState("");
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (sending) return;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setErr("Please enter a valid email address.");
       return;
     }
     setErr("");
-    // TODO: connect to your waitlist backend (e.g. Resend, Loops, Airtable, HubSpot).
-    setDone(true);
+    setSending(true);
+    try {
+      const res = await fetch(WAITLIST_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          email,
+          states: picked.map((k) => STATES.find((s) => s.key === k)?.label ?? k).join(", ") || "—",
+          page: window.location.href,
+          _subject: `Sensa waitlist: ${email}`,
+          _replyto: email,
+          _template: "table",
+          _captcha: "false",
+          _honey: honey,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || String(data.success) !== "true") throw new Error(data.message || res.statusText);
+      setDone(true);
+    } catch {
+      setErr(`Something went wrong. Please try again, or email us at ${CONTACT_EMAIL}.`);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -55,11 +81,24 @@ export default function Waitlist() {
             type="email"
             placeholder="Your email address"
             aria-label="Email address"
+            autoComplete="email"
+            inputMode="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Button type="submit" magnetic={false}>
-            Join the waitlist
+          {/* spam trap: hidden from people, filled in by bots */}
+          <input
+            type="text"
+            name="_honey"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden
+            value={honey}
+            onChange={(e) => setHoney(e.target.value)}
+            style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }}
+          />
+          <Button type="submit" magnetic={false} disabled={sending}>
+            {sending ? "Joining…" : "Join the waitlist"}
           </Button>
         </div>
       )}
