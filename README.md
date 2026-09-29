@@ -16,7 +16,16 @@ npm run dev      # http://localhost:3000
 npm run build    # static export → out/
 ```
 
-## Deploy (GitHub Pages)
+## Deploy (Cloudflare Pages — wearsensa.com)
+
+```bash
+npx wrangler login     # once, with the Sensa Cloudflare account
+npm run deploy:cf      # builds the static export and uploads out/ to the "wearsensa" Pages project
+```
+
+The custom domain `wearsensa.com` is attached to the Pages project in the Cloudflare dashboard (Workers & Pages → wearsensa → Custom domains).
+
+## Deploy (GitHub Pages mirror)
 
 Every push to `main` builds the static export and publishes it via `.github/workflows/pages.yml`.
 One-time setup in the GitHub repo: **Settings → Pages → Source: GitHub Actions**.

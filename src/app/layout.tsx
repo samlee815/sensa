@@ -15,7 +15,7 @@ const sans = Geist({ subsets: ["latin"], variable: "--f-sans", display: "swap" }
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--f-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://samlee815.github.io/sensa"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://wearsensa.com"),
   title: "Sensa — Personal State Intelligence",
   description:
     "Sensa is an ear-worn system that senses your state and helps you shift it — calm, sleep, focus, energy and recovery. Join the waitlist.",
