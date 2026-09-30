@@ -17,7 +17,7 @@ export default function CTA() {
               Waitlist open · U.S.
             </span>
             <h2 className="h-xl" data-reveal="lines">
-              Be first to <em>feel it.</em>
+              Be first to feel it<span className="pd">.</span>
             </h2>
           </div>
           <div data-reveal="fade" data-delay="0.2">

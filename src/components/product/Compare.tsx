@@ -22,7 +22,7 @@ export default function Compare() {
             A new category
           </span>
           <h2 className="h-l" data-reveal="lines">
-            From seeing your state <em>to shifting it.</em>
+            From seeing your state to shifting it<span className="pd">.</span>
           </h2>
           <p className="lede" data-reveal="fade">
             Wearables help us see our body’s data. The next step is understanding it — and acting on it.

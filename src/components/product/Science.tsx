@@ -48,7 +48,7 @@ export default function Science() {
               Feasibility & validation
             </span>
             <h2 className="h-l" data-reveal="lines">
-              Science provides a foundation. <em>Sensa must prove the rest.</em>
+              Science provides a foundation<span className="pd">.</span> <em>Sensa must prove the rest.</em>
             </h2>
           </div>
           <p className="lede" data-reveal="fade" style={{ justifySelf: "end" }}>
@@ -103,7 +103,7 @@ export default function Science() {
               Sensa validation plan
             </span>
             <h3 className="h-m" data-reveal="lines">
-              Usability first, <em>then measurable added value.</em>
+              Usability first, then measurable added value<span className="pd">.</span>
             </h3>
           </div>
           <div className="road">

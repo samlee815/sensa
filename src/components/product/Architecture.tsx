@@ -171,7 +171,7 @@ export default function Architecture() {
             System architecture
           </span>
           <h2 className="h-l" data-reveal="lines">
-            Three layers. <em>One quiet system.</em>
+            Three layers<span className="pd">.</span> <em>One quiet system.</em>
           </h2>
           <p className="lede" data-reveal="fade">
             Hardware delivers the experience. A personal engine makes decisions. An optional AI conversation adds context.
@@ -260,7 +260,7 @@ export default function Architecture() {
 
         <div className="arch-quote">
           <p data-reveal="lines">
-            The AI talks. <em>The controller decides.</em>
+            The AI talks<span className="pd">.</span> <em>The controller decides.</em>
           </p>
           <p className="fine" style={{ marginTop: 20 }} data-reveal="fade">
             Language models never directly control stimulation. The engine and local controller govern every parameter.

@@ -82,8 +82,8 @@ export default function Control() {
           <span className="eyebrow" data-reveal="fade">
             Safety & control
           </span>
-          <h2 className="h-l" data-reveal="lines">
-            You are always <em>in control.</em>
+          <h2 className="h-l is-serif" data-reveal="lines">
+            You are always in control.
           </h2>
           <p className="lede" data-reveal="fade">
             Stimulation limits, EEG measurement and study protocols are reviewed with clinical advisors in neurology.

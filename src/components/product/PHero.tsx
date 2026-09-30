@@ -106,7 +106,7 @@ export default function PHero() {
       <div className="phero-bottom">
         <div className="wrap">
           <h2 className="h-xl" data-reveal="intro">
-            The ear is the <em>interface.</em>
+            The ear is <span style={{ whiteSpace: "nowrap" }}>the interface<span className="pd">.</span></span>
           </h2>
           <div className="phero-side" data-reveal="intro">
             <p className="lede">

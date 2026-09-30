@@ -129,7 +129,7 @@ export default function StateSelector() {
               Choose your state
             </span>
             <h2 className="h-l" data-reveal="lines">
-              One body. <em>A different state.</em>
+              One body<span className="pd">.</span> <em>A different state.</em>
             </h2>
             <p className="lede" data-reveal="fade">
               Tell Sensa where you want to be. It responds within limits you control — and you can pause or stop at any

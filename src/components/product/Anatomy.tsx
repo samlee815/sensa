@@ -85,7 +85,7 @@ export default function Anatomy() {
                   Anatomy
                 </span>
                 <h2 className="h-m" data-reveal="lines">
-                  Everything in one <em>continuous cuff.</em>
+                  Everything in one continuous cuff<span className="pd">.</span>
                 </h2>
               </div>
               <div className="anatomy-list">

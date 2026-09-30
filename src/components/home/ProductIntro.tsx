@@ -20,7 +20,7 @@ export default function ProductIntro() {
                 Introducing
               </span>
               <h2 className="h-l" data-reveal="lines">
-                Sensa <em>C / Connected.</em>
+                Sensa <span style={{ whiteSpace: "nowrap" }}>C / Connected<span className="pd">.</span></span>
               </h2>
               <p className="lede" data-reveal="fade" data-delay="0.15">
                 A continuous ear cuff. Stimulation at the concha, sensing behind the ear, sound throughout — designed to

@@ -52,8 +52,8 @@ export default function Threshold() {
         <span className="threshold-side l">Restless</span>
         <span className="threshold-side r">In tune</span>
         <div className="threshold-text">
-          <h2 className="h-xl">
-            Help your body <em>meet the moment.</em>
+          <h2 className="h-xl is-serif">
+            Help your body meet the moment.
           </h2>
           <p className="mono" style={{ marginTop: 28, color: "rgba(239,236,231,.7)" }}>
             One body. A different state.
