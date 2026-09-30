@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://wearsensa.com"),
   title: "Sensa — Personal State Intelligence",
   description:
-    "Sensa is an ear-worn system that senses your state and helps you shift it — calm, sleep, focus, energy and recovery. Join the waitlist.",
+    "Sensa is a fashion-forward BCI system designed to understand both your body and your life — reading your signals, learning your emotional patterns, and helping you shift into the state you want to be in.",
   openGraph: {
     title: "Sensa — Personal State Intelligence",
     description: "Feel the way you want. Anytime, anywhere.",

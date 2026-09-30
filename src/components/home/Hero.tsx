@@ -116,8 +116,8 @@ export default function Hero() {
             </h1>
             <div className="hero-row" data-reveal="intro">
               <p className="lede">
-                Sensa is an ear-worn system that reads your body’s signals and helps you shift into the state you
-                choose — calm, sleep, focus, energy or recovery.
+                Sensa is a fashion-forward BCI system designed to understand both your body and your life — reading
+                your signals, learning your emotional patterns, and helping you shift into the state you want to be in.
               </p>
               <div className="hero-actions">
                 <Button href="#waitlist">Join the waitlist</Button>

@@ -1,5 +1,7 @@
-name: Deploy to GitHub Pages
+name: Redirect GitHub Pages to wearsensa.com
 
+# The site now lives at https://wearsensa.com (Cloudflare). This keeps any old
+# samlee815.github.io/sensa links working by sending them to the same path there.
 on:
   push:
     branches: [main]
@@ -15,31 +17,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - id: pages
-        uses: actions/configure-pages@v5
-      - run: npm ci
-      - run: npm run build
-        env:
-          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Build redirect page
+        run: |
+          mkdir -p site
+          cat > site/index.html <<'HTML'
+          <!doctype html>
+          <meta charset="utf-8" />
+          <title>Sensa has moved</title>
+          <meta name="robots" content="noindex" />
+          <link rel="canonical" href="https://wearsensa.com/" />
+          <meta http-equiv="refresh" content="0; url=https://wearsensa.com/" />
+          <script>location.replace("https://wearsensa.com" + location.pathname.replace(/^\/sensa/, "") + location.search + location.hash);</script>
+          <p>Sensa has moved to <a href="https://wearsensa.com/">wearsensa.com</a>.</p>
+          HTML
+          cp site/index.html site/404.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
       - id: deployment
         uses: actions/deploy-pages@v4

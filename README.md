@@ -25,33 +25,9 @@ npm run deploy:cf      # builds the static export and uploads out/ to the "wears
 
 The custom domain `wearsensa.com` is attached to the Pages project in the Cloudflare dashboard (Workers & Pages → wearsensa → Custom domains).
 
-## Deploy (GitHub Pages mirror)
+## Old GitHub Pages address
 
-Every push to `main` builds the static export and publishes it via `.github/workflows/pages.yml`.
-One-time setup in the GitHub repo: **Settings → Pages → Source: GitHub Actions**.
-
-- On a project page (`<user>.github.io/<repo>`) the workflow sets the base path automatically.
-- For a custom domain, add it under Settings → Pages; the base path then becomes empty.
-- `public/product/index.html` keeps the old `/product` URL working (redirects to `/#product`).
-- This clone pushes with a dedicated SSH key (`git config --local core.sshCommand`), independent of any other GitHub login on the machine.
-
-## Structure
-
-```
-src/app/                 layout (fonts, metadata), globals.css (all design tokens + styles)
-src/components/          AppShell, Nav, Preloader, Cursor, page-transition curtain, Button, Waitlist, CTA, Footer
-src/components/three/    LiquidChrome (hero shader blob), SignalField (EEG particle terrain)
-src/components/home/     chapter I–II sections + HomeView (page order)
-src/components/product/  chapter II–III sections (session, compare, technology, anatomy, system, science, control)
-src/lib/                 gsap setup, useReveals (declarative scroll reveals), state data, GLSL noise
-public/img/              images from the pitch deck (WebP)
-```
-
-Nav links jump to sections and land with the section heading (`[data-anchor]`) just under the nav. Each anchored section is sized so its heading + main module fit one desktop screen.
-
-Scroll reveals are declarative. Add `data-reveal="lines" | "fade" | "stagger" | "img" | "line"`, `data-parallax="0.2"` or `data-count="50"` to any element inside a page view.
-
-The five states (copy, colours, waveform parameters, images) live in `src/lib/states.ts`.
+`.github/workflows/pages.yml` now only publishes a redirect: `samlee815.github.io/sensa/*` → `wearsensa.com/*`.
 
 ## Contact & waitlist
 
