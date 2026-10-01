@@ -30,7 +30,7 @@ export default function Need() {
       <div className="wrap">
         <div className="need-head">
           <h2 className="h-l" data-reveal="lines">
-            Life moves forward<span className="pd">.</span> <em>Your body needs to catch up.</em>
+            Life moves forward. <em>Your body</em> needs to catch up.
           </h2>
           <p className="lede" data-reveal="fade" style={{ justifySelf: "end" }}>
             Different pressures, the same result. The moments that matter most arrive before your body is ready for

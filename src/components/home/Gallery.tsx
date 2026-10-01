@@ -34,8 +34,8 @@ export default function Gallery() {
       <div className="gallery-sticky">
         <div className="gallery-head">
           <div className="wrap">
-            <h2 className="h-m is-serif" data-reveal="lines">
-              The Sensa state of mind.
+            <h2 className="h-m" data-reveal="lines">
+              The Sensa <em>state of mind.</em>
             </h2>
             <span className="mono" style={{ color: "var(--muted)" }}>
               Wellness looks good on you
@@ -58,8 +58,8 @@ export default function Gallery() {
             </figure>
           ))}
           <div className="gallery-end">
-            <p className="h-m is-serif">
-              Get closer to who you want to be.
+            <p className="h-m">
+              Get closer to <em>who you want to be.</em>
             </p>
           </div>
         </div>

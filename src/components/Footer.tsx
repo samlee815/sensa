@@ -22,8 +22,8 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer-top">
           <div className="footer-col" style={{ gap: 20 }}>
-            <p className="h-s is-serif" style={{ maxWidth: "16em" }}>
-              Help your body meet the moment.
+            <p className="h-s" style={{ maxWidth: "16em" }}>
+              Help your body <em>meet the moment.</em>
             </p>
             <p className="body" style={{ maxWidth: "28em" }}>
               Sensa is building personal state intelligence — sensing, stimulation and sound in one ear-worn system.

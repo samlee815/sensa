@@ -49,7 +49,7 @@ export default function Easier() {
           </div>
           <div>
             <h2 className="h-m" data-reveal="lines">
-              What you won’t need<span className="pd">.</span>
+              What you <em>won’t</em> need.
             </h2>
             <div className="nots">
               {NOTS.map((n) => (

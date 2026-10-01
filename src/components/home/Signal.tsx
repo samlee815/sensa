@@ -66,7 +66,7 @@ export default function Signal() {
                 From data to change
               </span>
               <h2 className="h-l" data-reveal="lines">
-                Wearables show you the data<span className="pd">.</span> <em>Sensa helps you act on it.</em>
+                Wearables show you the data. <em>Sensa helps you act on it.</em>
               </h2>
             </div>
             <div className="signal-hud" data-reveal="stagger">

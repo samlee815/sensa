@@ -135,18 +135,6 @@ section { position: relative; }
 .h-m   { font-size: clamp(30px, 3.4vw, 58px); line-height: 1.04; letter-spacing: -0.035em; }
 .h-s   { font-size: clamp(22px, 1.9vw, 30px); line-height: 1.15; letter-spacing: -0.02em; font-weight: 400; }
 
-/* One sentence, one font: a whole heading can be set in the serif italic (Cormorant runs small, so it steps up) */
-.h-xxl.is-serif, .h-xl.is-serif, .h-l.is-serif, .h-m.is-serif, .h-s.is-serif {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-}
-.h-xl.is-serif { font-size: clamp(52px, 7.8vw, 138px); line-height: 0.95; }
-.h-l.is-serif  { font-size: clamp(42px, 5.6vw, 96px); line-height: 1; }
-.h-m.is-serif  { font-size: clamp(34px, 3.8vw, 64px); line-height: 1.02; }
-.h-s.is-serif  { font-size: clamp(26px, 2.2vw, 34px); line-height: 1.1; }
-
 .h-xxl em, .h-xl em, .h-l em, .h-m em, .h-s em, .serif-i {
   font-family: var(--serif);
   font-style: italic;
@@ -501,18 +489,8 @@ section { position: relative; }
 }
 .hero-content .wrap { display: grid; gap: 34px; }
 .hero-content a, .hero-content button { pointer-events: auto; }
-/* Hero statement in the mono of the "Personal State Intelligence" label */
-.hero-title {
-  max-width: none;
-  font-family: var(--mono);
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: clamp(38px, 5.8vw, 104px);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  word-spacing: -0.24em; /* a mono space is a full cell wide — pull words together */
-}
-.hero-title .line-2 { display: block; }
+.hero-title { max-width: 11ch; }
+.hero-title .line-2 { padding-left: 1.4ch; display: block; }
 .hero-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
 .hero-row .lede { max-width: 30em; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -647,7 +625,7 @@ section { position: relative; }
 }
 .signal-top { position: absolute; top: calc(var(--nav-h) + 32px); left: 0; right: 0; z-index: 2; }
 .signal-top .wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
-.signal-top .h-l { max-width: 24ch; }
+.signal-top .h-l { max-width: 14ch; }
 .signal-hud { justify-self: end; display: grid; gap: 14px; min-width: 240px; }
 .hud-row { display: flex; justify-content: space-between; gap: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
 .hud-row b { font-weight: 400; color: var(--fg); font-variant-numeric: tabular-nums; }
@@ -683,7 +661,6 @@ section { position: relative; }
 .threshold-media::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 60% at 50% 50%, rgba(10, 10, 11, 0.55), rgba(10, 10, 11, 0.25)); }
 .threshold-text { position: relative; z-index: 2; text-align: center; color: #efece7; padding: 0 var(--gutter); }
 .threshold-text .h-xl { color: #efece7; }
-.threshold-text .h-xl.is-serif { font-size: clamp(44px, 6.2vw, 112px); max-width: 12em; margin: 0 auto; }
 .threshold-side { position: absolute; z-index: 2; top: 50%; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: rgba(239, 236, 231, 0.6); text-transform: uppercase; }
 .threshold-side.l { left: var(--gutter); }
 .threshold-side.r { right: var(--gutter); }
@@ -858,7 +835,7 @@ section { position: relative; }
    HOME — Easier
    ========================================================================== */
 .easier-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(40px, 6vw, 120px); align-items: center; }
-.big-min { white-space: nowrap; font-weight: 200; font-size: clamp(110px, 15vw, 250px); line-height: 0.82; letter-spacing: -0.07em; margin: 0; display: flex; align-items: flex-start; }
+.big-min { font-weight: 200; font-size: clamp(110px, 17vw, 300px); line-height: 0.82; letter-spacing: -0.07em; margin: 0; display: flex; align-items: flex-start; }
 .big-min small { font-size: 0.16em; letter-spacing: 0; margin: 0.4em 0 0 0.5em; font-weight: 400; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.1em; }
 .nots { display: grid; margin-top: 40px; }
 .not { display: grid; grid-template-columns: 40px 1fr; align-items: center; gap: 16px; padding: 22px 0; border-top: 1px solid var(--line); font-size: clamp(18px, 1.5vw, 24px); letter-spacing: -0.02em; }
@@ -1051,7 +1028,7 @@ section { position: relative; }
 .phero-top .wrap { display: flex; justify-content: space-between; gap: 24px; }
 .phero-bottom { position: relative; z-index: 2; align-self: end; padding-bottom: clamp(32px, 5vh, 64px); }
 .phero-bottom .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; }
-.phero-bottom .h-xl { max-width: 16ch; }
+.phero-bottom .h-xl { max-width: 9ch; }
 .phero-side { display: grid; gap: 24px; justify-items: start; }
 .phero-specs { display: flex; gap: 32px; flex-wrap: wrap; }
 .phero-specs div { display: grid; gap: 4px; }
@@ -1063,7 +1040,7 @@ section { position: relative; }
   .phero-product { height: 34vh; height: 34svh; }
   .phero-letter { top: 34%; }
   .phero-top .wrap span:last-child { display: none; }
-  .phero-bottom .h-xl { font-size: clamp(30px, 9vw, 48px); }
+  .phero-bottom .h-xl { font-size: clamp(40px, 12vw, 64px); }
   .phero-side { gap: 18px; }
   .phero-side .lede { font-size: 15px; }
   .phero-specs { gap: 20px; flex-wrap: nowrap; }
@@ -1186,7 +1163,7 @@ section { position: relative; }
 .sess-step.is-on { opacity: 1; }
 .sess-step .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--muted); display: flex; gap: 12px; align-items: center; }
 .sess-step .num::after { content: ""; width: 60px; height: 1px; background: var(--line); }
-.sess-step h3 { margin: 0; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(36px, 3.8vw, 62px); letter-spacing: -0.02em; line-height: 1; }
+.sess-step h3 { margin: 0; font-weight: 300; font-size: clamp(32px, 3.4vw, 56px); letter-spacing: -0.04em; line-height: 1; }
 .sess-step h3 em { font-family: var(--serif); font-style: italic; }
 .sess-step p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; max-width: 26em; }
 .sess-step blockquote { margin: 6px 0 0; font-family: var(--serif); font-style: italic; font-size: 24px; line-height: 1.3; color: var(--fg); max-width: 22em; }
@@ -1393,21 +1370,3 @@ section { position: relative; }
   .waitlist-field .btn { --h: 46px; padding-left: 16px; font-size: 13px; }
 }
 .btn:disabled { opacity: 0.6; cursor: progress; }
-
-/* Statement headings share the hero mono; an emphasised sentence (<em>) sits on its own line in the serif italic */
-.h-xxl:not(.is-serif), .h-xl:not(.is-serif), .h-l:not(.is-serif),
-.h-m:not(.is-serif), .h-s:not(.is-serif), .arch-quote p:not(.fine) {
-  font-family: var(--mono); font-weight: 300; text-transform: uppercase; letter-spacing: -0.03em; word-spacing: -0.24em;
-}
-.h-xl:not(.is-serif) { font-size: clamp(32px, 4.4vw, 80px); line-height: 1.04; }
-.h-l:not(.is-serif) { font-size: clamp(26px, 3.1vw, 54px); line-height: 1.08; }
-.h-m:not(.is-serif) { font-size: clamp(21px, 2.1vw, 36px); line-height: 1.12; }
-.arch-quote p:not(.fine) { font-size: clamp(26px, 3.1vw, 54px); line-height: 1.08; }
-.h-xl:not(.is-serif) em, .h-l:not(.is-serif) em, .h-m:not(.is-serif) em, .arch-quote p em {
-  display: block; text-transform: none; font-size: 1.22em; letter-spacing: -0.02em; word-spacing: normal; line-height: 1.05; margin-top: 0.08em;
-}
-.h-xl, .h-l, .h-m, .h-s, .arch-quote p { text-wrap: balance; }
-.h-xl em, .h-l em, .h-m em { text-wrap: balance; }
-
-/* A mono full stop sits centred in a full-width cell — pull it back against its word */
-.hero-title .pd:not(:empty), .h-xl .pd:not(:empty), .h-l .pd:not(:empty), .h-m .pd:not(:empty), .h-s .pd:not(:empty), .arch-quote .pd:not(:empty) { margin-left: -0.12em; }

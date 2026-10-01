@@ -110,7 +110,9 @@ export default function Hero() {
             <h1 className="h-xxl hero-title" data-reveal="intro">
               Feel the way
               <br />
-              <span className="line-2">you want<span className="pd">.</span></span>
+              <span className="line-2">
+                you <em>want.</em>
+              </span>
             </h1>
             <div className="hero-row" data-reveal="intro">
               <p className="lede">

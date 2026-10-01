@@ -6,7 +6,7 @@ const STEPS = [
   {
     h: (
       <>
-        Choose a goal.
+        Choose a <em>goal.</em>
       </>
     ),
     p: "Tap to choose. Add a few words only if you want to.",
@@ -15,7 +15,7 @@ const STEPS = [
   {
     h: (
       <>
-        Check in.
+        Check <em>in.</em>
       </>
     ),
     p: "A short self-report combines with physiological signals. When signals are weak, Sensa says so — and offers a fixed program instead.",
@@ -23,7 +23,7 @@ const STEPS = [
   {
     h: (
       <>
-        Begin.
+        <em>Begin.</em>
       </>
     ),
     p: "Confirm the duration and a comfortable intensity. Reduce, pause or stop at any time — one tap, always.",
@@ -31,7 +31,7 @@ const STEPS = [
   {
     h: (
       <>
-        Say whether it helped.
+        Say whether it <em>helped.</em>
       </>
     ),
     p: "Did you feel closer to your goal? Was it comfortable? Your history informs the next session as adaptation is validated.",
@@ -69,7 +69,7 @@ function Phone({ step }: { step: number }) {
         <div className={`pscreen ${step === 0 ? "is-on" : ""}`}>
           <span className="plabel">New session</span>
           <p className="ptitle">
-            How do you want to feel?
+            How do you want to <em>feel?</em>
           </p>
           <div className="pbubble">That meeting was stressful. I need a break.</div>
           <div className="pgoals">
@@ -87,7 +87,7 @@ function Phone({ step }: { step: number }) {
         <div className={`pscreen ${step === 1 ? "is-on" : ""}`}>
           <span className="plabel">Check in · 00:20</span>
           <p className="ptitle">
-            Reading your signals
+            Reading your <em>signals</em>
           </p>
           <div className="pmetrics">
             <div className="pmetric">
@@ -173,7 +173,7 @@ function Phone({ step }: { step: number }) {
         <div className={`pscreen ${step === 3 ? "is-on" : ""}`}>
           <span className="plabel">Session complete</span>
           <p className="ptitle">
-            Closer to calm?
+            Closer to <em>calm?</em>
           </p>
           <div className="pscale">
             {[1, 2, 3, 4, 5].map((n) => (
@@ -236,7 +236,7 @@ export default function Session() {
             How a session works
           </span>
           <h2 className="h-l" data-reveal="lines">
-            One simple choice<span className="pd">.</span> <em>A better state of you.</em>
+            One simple choice. <em>A better state of you.</em>
           </h2>
           <p className="lede" data-reveal="fade">
             From choosing a goal to sharing feedback, every step is designed to reduce effort. AI conversation is optional —
