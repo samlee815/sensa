@@ -18,7 +18,6 @@ export default function PHero() {
       gsap
         .timeline({ scrollTrigger: { trigger: root.current, start: "top 65%", once: true } })
           .from(".phero-product", { autoAlpha: 0, scale: 0.86, y: 40, duration: 2.4, ease: "expo.out" }, 0)
-          .from(".phero-letter", { autoAlpha: 0, scale: 1.15, duration: 2.6, ease: "expo.out" }, 0)
           .from(".phero-rings circle, .phero-rings g", { autoAlpha: 0, scale: 0.8, transformOrigin: "50% 50%", duration: 2, ease: "expo.out", stagger: 0.08 }, 0.1)
           .from(split.lines, { yPercent: 115, duration: 1.5, ease: "expo.out", stagger: 0.1 }, 0.4)
           .from(".phero-top .mono, .phero-side > *", { autoAlpha: 0, y: 20, duration: 1.2, ease: "expo.out", stagger: 0.08 }, 0.6);
@@ -33,11 +32,6 @@ export default function PHero() {
       gsap.to(".phero-rings", {
         scale: 1.35,
         autoAlpha: 0.2,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to(".phero-letter", {
-        yPercent: 20,
         ease: "none",
         scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
       });
@@ -65,9 +59,6 @@ export default function PHero() {
     <section className="phero s-dark" data-theme="dark" id="technology" ref={root}>
       <div className="phero-bg" />
       <div className="phero-glow" aria-hidden />
-      <div className="phero-letter" aria-hidden>
-        C
-      </div>
       <div className="phero-rings" aria-hidden>
         <svg viewBox="-100 -100 200 200">
           <circle r="96" fill="none" stroke="rgba(239,236,231,.1)" strokeWidth="0.15" />
@@ -91,8 +82,7 @@ export default function PHero() {
       </div>
       <div className="phero-product">
         <div className="tilt" ref={tilt}>
-          <Image src="/img/product-assembly.webp" alt="Sensa C / Connected ear cuff" fill sizes="46vh" />
-          <div className="phero-sheen" />
+          <Image src="/img/product-bud-c.webp" alt="Sensa C / Connected earpiece" fill sizes="46vh" />
         </div>
       </div>
 
@@ -110,8 +100,8 @@ export default function PHero() {
           </h2>
           <div className="phero-side" data-reveal="intro">
             <p className="lede">
-              One continuous cuff brings sensing, gentle stimulation and sound together — so shifting state takes minutes,
-              not months of practice.
+              One sculpted earpiece brings sensing, gentle stimulation and sound together — so shifting state takes
+              minutes, not months of practice.
             </p>
             <div className="phero-specs">
               <div>

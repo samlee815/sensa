@@ -970,20 +970,6 @@ section { position: relative; }
     radial-gradient(30% 30% at 50% 50%, rgba(241, 230, 216, 0.08), transparent 70%),
     var(--ink);
 }
-.phero-letter {
-  position: absolute;
-  left: 50%;
-  top: 46%;
-  transform: translate(-50%, -52%);
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: min(92vh, 70vw);
-  line-height: 0.8;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(239, 236, 231, 0.12);
-  pointer-events: none;
-  user-select: none;
-}
 .phero-rings { position: absolute; left: 50%; top: 44%; width: min(78vh, 80vw); aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; }
 .phero-rings svg { width: 100%; height: 100%; overflow: visible; }
 .phero-product {
@@ -1006,24 +992,7 @@ section { position: relative; }
   pointer-events: none;
 }
 .phero-product .tilt { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
-.phero-product .tilt img,
-.phero-sheen {
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  mask-composite: intersect;
-}
 .phero-product .tilt img { object-fit: contain; filter: contrast(1.06) brightness(1.04); }
-.phero-sheen {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.22) 48%, transparent 60%);
-  mix-blend-mode: overlay;
-  background-size: 250% 100%;
-  animation: sheen 6s var(--ease-io) infinite;
-  pointer-events: none;
-}
-@keyframes sheen { 0% { background-position: 130% 0; } 60%, 100% { background-position: -30% 0; } }
 .phero-top { position: relative; z-index: 2; align-self: start; padding-top: calc(var(--nav-h) + 48px); }
 .phero-top .wrap { display: flex; justify-content: space-between; gap: 24px; }
 .phero-bottom { position: relative; z-index: 2; align-self: end; padding-bottom: clamp(32px, 5vh, 64px); }
@@ -1038,7 +1007,6 @@ section { position: relative; }
   .phero-bottom .wrap { grid-template-columns: 1fr; }
   .phero-product, .phero-glow, .phero-rings { top: 31%; }
   .phero-product { height: 34vh; height: 34svh; }
-  .phero-letter { top: 34%; }
   .phero-top .wrap span:last-child { display: none; }
   .phero-bottom .h-xl { font-size: clamp(40px, 12vw, 64px); }
   .phero-side { gap: 18px; }
@@ -1068,8 +1036,8 @@ section { position: relative; }
 .aitem .tags { margin: 16px 0 0 38px; display: flex; gap: 8px; flex-wrap: wrap; }
 .aitem .tags span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; padding: 6px 10px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); color: var(--muted); }
 .anatomy-visual { position: relative; aspect-ratio: 452 / 655; max-height: 78vh; justify-self: center; width: 100%; max-width: 560px; }
-.anatomy-visual .frame { position: absolute; inset: 0; background: #373431; }
-.anatomy-visual .frame img { object-fit: cover; transition: transform 1.4s var(--ease-out); }
+.anatomy-visual .frame { position: absolute; inset: 0; background: none; border-radius: 0; overflow: visible; }
+.anatomy-visual .frame img { object-fit: contain; transition: transform 1.4s var(--ease-out); }
 .hotspot { position: absolute; z-index: 3; width: 0; height: 0; }
 .hotspot .dot { position: absolute; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #efece7; box-shadow: 0 0 0 0 rgba(239, 236, 231, 0.6); transform: scale(0.6); opacity: 0.5; transition: transform 0.6s var(--ease-out), opacity 0.6s var(--ease-out); }
 .hotspot .dot::after { content: ""; position: absolute; inset: -10px; border-radius: 50%; border: 1px solid rgba(239, 236, 231, 0.5); animation: ping 2.4s var(--ease-out) infinite; }
@@ -1323,7 +1291,6 @@ section { position: relative; }
 
 @media (prefers-reduced-motion: reduce) {
   .grain { animation: none; }
-  .phero-sheen { animation: none; }
 }
 
 /* Animatable accent so state changes glide instead of snapping */

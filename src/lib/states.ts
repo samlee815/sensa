@@ -64,7 +64,7 @@ export const STATES: SensaState[] = [
     minutes: 5,
     intensity: 3,
     band: "β 15–25 Hz",
-    image: "/img/skin.webp",
+    image: "/img/rock-2.webp",
     wave: { freq: 3.1, amp: 0.38, speed: 2.3, harmonic: 0.42, breathe: 0.05 },
   },
   {

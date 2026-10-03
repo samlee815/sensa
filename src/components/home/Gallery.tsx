@@ -6,7 +6,7 @@ import { gsap, useGSAP } from "@/lib/gsap";
 const ITEMS: { img: string; tag: string; n: string; pos?: string }[] = [
   { img: "/img/shoulder.webp", tag: "abide in me", n: "01" },
   { img: "/img/glass.webp", tag: "a more present me", n: "02" },
-  { img: "/img/skin.webp", tag: "grounded beauty", n: "03" },
+  { img: "/img/rock-2.webp", tag: "grounded beauty", n: "03" },
   { img: "/img/petals.webp", tag: "breathe deeper", n: "04" },
   { img: "/img/sphere.webp", tag: "wellness looks good on you", n: "05", pos: "82% 50%" },
 ];

@@ -4,9 +4,9 @@ import Button from "../Button";
 import { TLink } from "../Transition";
 
 const FEATURES = [
-  { h: "EEG / PPG sensing", p: "A rear module reads brain-activity references and pulse variability — combined with how you say you feel." },
+  { h: "EEG / PPG sensing", p: "Sensors in the ear tip read brain-activity references and pulse variability — combined with how you say you feel." },
   { h: "Ear stimulation + sound", p: "Skin-contact electrodes at the concha deliver gentle stimulation, while sound supports regulation." },
-  { h: "Made for everyday wear", p: "One sculpted assembly. Comfort and stable contact come first, so it fits into real life." },
+  { h: "Made for everyday wear", p: "One sculpted earpiece. Comfort and stable contact come first, so it fits into real life." },
 ];
 
 export default function ProductIntro() {
@@ -23,8 +23,8 @@ export default function ProductIntro() {
                 Sensa <em>C / Connected.</em>
               </h2>
               <p className="lede" data-reveal="fade" data-delay="0.15">
-                A continuous ear cuff. Stimulation at the concha, sensing behind the ear, sound throughout — designed to
-                disappear into your day.
+                One sculpted in-ear piece. Stimulation at the concha, sensing in the ear canal, sound throughout —
+                designed to disappear into your day.
               </p>
             </div>
             <div className="features" data-reveal="stagger">
@@ -50,7 +50,7 @@ export default function ProductIntro() {
           <div className="pintro-media">
             <TLink href="/#anatomy" cursor="Explore">
               <div className="frame pintro-main" data-reveal="img">
-                <Image src="/img/product-front.webp" alt="Sensa C / Connected worn on the ear" fill sizes="(max-width: 960px) 100vw, 50vw" style={{ objectFit: "cover" }} />
+                <Image src="/img/product-profile.webp" alt="Sensa C / Connected worn on the ear" fill sizes="(max-width: 960px) 100vw, 50vw" style={{ objectFit: "cover" }} />
                 <div className="pintro-label mono">
                   <span>C / 01</span>
                   <span style={{ opacity: 0.6 }}>Front</span>
@@ -58,7 +58,7 @@ export default function ProductIntro() {
               </div>
             </TLink>
             <div className="frame pintro-float" data-parallax="0.35">
-              <Image src="/img/product-assembly.webp" alt="Sensa C / Connected — one assembly" fill sizes="20vw" style={{ objectFit: "cover" }} />
+              <Image src="/img/product-ear.webp" alt="Sensa C / Connected in the ear" fill sizes="20vw" style={{ objectFit: "cover" }} />
             </div>
           </div>
         </div>
