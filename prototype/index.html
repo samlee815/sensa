@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sensa — Marble Homepage Prototype</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Prototype of the Sensa homepage in a light marble and limestone direction.">
+<script>
+  // Animated entrances only when motion is welcome; otherwise the page renders complete and still.
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js");
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Geist:wght@300;400;500&display=swap">
+<style>
+/* Layout: a gallery wall in limestone — wide ivory margins, thin plaster gutters, arch-shaped windows onto the photography */
+:root {
+  --marble: #eee9e2;
+  --plaster: #e4dcd1;
+  --stone: #cfc3b4;
+  --umber: #2a2420;
+  --taupe: #7b6f64;
+  --bronze: #96775a;
+  --ivory: #f7f3ed;
+
+  --serif: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+  --sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 64px);
+  --max: 1360px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--marble);
+  color: var(--umber);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 1px solid var(--bronze); outline-offset: 4px; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
+
+/* type */
+.label {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+.label.rule { display: inline-flex; align-items: center; gap: 14px; }
+.label.rule::before { content: ""; width: 28px; height: 1px; background: var(--bronze); }
+.display {
+  font-family: var(--serif);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  margin: 0;
+  text-wrap: balance;
+}
+.display i { font-style: italic; }
+.h1 { font-size: clamp(54px, 8.4vw, 132px); }
+.h2 { font-size: clamp(38px, 4.8vw, 76px); }
+.lede { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.6; color: var(--taupe); max-width: 34em; margin: 0; }
+.small { font-size: 13px; line-height: 1.55; color: var(--taupe); }
+/* masked lines for the rising-headline entrance */
+.line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.line-inner { display: block; will-change: transform; }
+
+/* buttons */
+.btn {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 48px; padding: 0 26px;
+  font-family: var(--serif); font-weight: 500; font-size: 13px;
+  letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid var(--umber); color: var(--umber); background: transparent;
+  cursor: pointer; transition: color 0.6s var(--ease);
+}
+.btn::after { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--umber); transform: scaleY(0); transform-origin: 50% 100%; transition: transform 0.6s var(--ease); }
+.btn:hover { color: var(--marble); }
+.btn:hover::after { transform: scaleY(1); }
+.btn.solid { background: var(--umber); color: var(--marble); }
+.btn.solid::after { background: var(--marble); }
+.btn.solid:hover { color: var(--umber); }
+.btn .arr { font-family: var(--sans); letter-spacing: 0; font-size: 15px; transition: transform 0.6s var(--ease); }
+.btn:hover .arr { transform: translateX(4px); }
+
+/* header */
+.top {
+  position: fixed; left: 0; right: 0; top: 0; z-index: 20;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: color-mix(in srgb, var(--marble) 80%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--stone) 55%, transparent);
+  transition: transform 0.7s var(--ease);
+}
+.top.is-hidden { transform: translateY(-100%); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 72px; }
+.brand { display: flex; align-items: baseline; gap: 14px; text-decoration: none; }
+.wordmark { font-family: var(--serif); font-weight: 400; font-size: 30px; letter-spacing: -0.01em; line-height: 1; }
+.brand .label { font-size: 10px; }
+.nav { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px); }
+.nav a:not(.btn) { position: relative; font-family: var(--serif); font-weight: 500; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; text-decoration: none; color: var(--taupe); transition: color 0.3s; }
+.nav a:not(.btn)::after { content: ""; position: absolute; left: 0; right: 0.28em; bottom: -4px; height: 1px; background: var(--bronze); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.5s var(--ease); }
+.nav a:not(.btn):hover { color: var(--umber); }
+.nav a:not(.btn):hover::after { transform: scaleX(1); }
+.nav .btn { min-height: 40px; padding: 0 18px; font-size: 11px; }
+
+/* hero */
+.hero { position: relative; overflow: hidden; background: var(--plaster); isolation: isolate; padding-top: 72px; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.hero .wrap {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(32px, 5vw, 96px); align-items: end;
+  padding-block: clamp(72px, 9vw, 140px) clamp(48px, 6vw, 88px);
+}
+.hero-copy { display: grid; gap: clamp(26px, 3vw, 40px); min-width: 0; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.arch { position: relative; border-radius: 999px 999px 0 0; overflow: hidden; background: var(--stone); }
+.arch img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); will-change: transform; }
+.hero-figure { display: grid; gap: 14px; justify-self: end; width: min(100%, 420px); margin: 0; }
+.hero-figure .arch { aspect-ratio: 3 / 4.1; }
+.hero-figure figcaption { display: flex; justify-content: space-between; gap: 12px; }
+.hero-meta { border-top: 1px solid color-mix(in srgb, var(--umber) 14%, transparent); }
+.hero-meta .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-block: 18px; }
+
+/* manifesto */
+.manifesto { padding-block: clamp(96px, 12vw, 190px); }
+.manifesto .wrap { display: grid; grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); }
+.manifesto-text { display: grid; gap: 0.5em; font-size: clamp(30px, 3.5vw, 54px); max-width: 21em; }
+.manifesto-text p { margin: 0; }
+.manifesto-text .quiet { color: var(--taupe); }
+.manifesto-text .w { transition: none; }
+.states-row { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: clamp(32px, 4vw, 56px); }
+
+/* mosaic */
+.mosaic { padding-bottom: clamp(96px, 12vw, 180px); }
+.mosaic-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 18px 40px; margin-bottom: clamp(28px, 3.5vw, 48px); }
+.board { display: grid; gap: 8px; }
+.board-row { display: flex; gap: 8px; }
+.board-row.r1 { height: clamp(220px, 27vw, 400px); }
+.board-row.r2, .board-row.r3 { height: clamp(200px, 22vw, 320px); }
+.tile { position: relative; margin: 0; overflow: hidden; background: var(--stone); min-width: 0; }
+.tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 2.4s var(--ease); }
+.tile:hover img { transform: scale(1.05); }
+.tile figcaption { position: absolute; left: 18px; bottom: 16px; color: var(--ivory); text-shadow: 0 1px 14px rgba(42, 36, 32, 0.35); }
+.tile figcaption .label { color: inherit; font-size: 11px; }
+.tile figcaption .label::before { background: currentColor; opacity: 0.7; transform-origin: 0 50%; transition: transform 0.8s var(--ease); }
+.tile:hover figcaption .label::before { transform: scaleX(1.8); }
+.plate {
+  flex: 4.4; min-width: 0; display: grid; place-content: center; justify-items: center; text-align: center; gap: 10px;
+  background: var(--plaster); padding: 24px;
+}
+.plate .wordmark { font-size: clamp(56px, 6.4vw, 104px); }
+.plate .tag { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 1.7vw, 26px); letter-spacing: 0.3em; color: var(--taupe); margin: 0; }
+.plate hr { width: 36px; border: 0; border-top: 1px solid var(--bronze); margin: 10px 0 6px; }
+.plate .label { font-size: 10px; letter-spacing: 0.36em; }
+
+/* states */
+.states { padding-block: clamp(96px, 11vw, 170px); background: var(--plaster); }
+.states-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: 24px clamp(32px, 6vw, 96px); align-items: end; margin-bottom: clamp(40px, 5vw, 72px); }
+.state-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 24px); }
+.state { display: grid; gap: 14px; align-content: start; }
+.state .arch { aspect-ratio: 3 / 4.4; }
+.state h3 { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(32px, 2.8vw, 44px); line-height: 1; margin: 6px 0 0; }
+.state p { margin: 0; }
+.state .spec { display: flex; justify-content: space-between; gap: 8px; padding-top: 12px; border-top: 1px solid var(--stone); font-variant-numeric: lining-nums tabular-nums; }
+
+/* product */
+.product { padding-block: clamp(96px, 12vw, 180px); }
+.product .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 110px); align-items: center; }
+.product-visual { position: relative; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 8px; align-items: end; }
+.pedestal { position: relative; aspect-ratio: 4 / 5; background: radial-gradient(120% 90% at 50% 38%, var(--ivory) 0%, var(--plaster) 58%, var(--stone) 100%); display: grid; place-items: center; overflow: hidden; }
+.pedestal .bud { width: 74%; filter: drop-shadow(0 34px 28px rgba(42, 36, 32, 0.28)); }
+.pedestal .label { position: absolute; left: 18px; top: 16px; font-size: 10px; }
+.product-visual .ear { aspect-ratio: 3 / 4.3; overflow: hidden; }
+.product-visual .ear img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+.product-copy { display: grid; gap: clamp(22px, 2.6vw, 34px); min-width: 0; }
+.features { list-style: none; margin: 0; padding: 0; }
+.features li { position: relative; display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 4px 24px; padding-block: 18px; }
+.features li::before, .features li:last-child::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: var(--stone); transform-origin: 0 50%; }
+.features li::before { top: 0; }
+.features li:last-child::after { bottom: 0; }
+.features .label { font-size: 11px; padding-top: 4px; }
+.features p { margin: 0; }
+.price { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
+.price b { font-family: var(--serif); font-weight: 300; font-size: 44px; line-height: 1; font-variant-numeric: lining-nums; }
+
+/* stats */
+.need { padding-block: clamp(96px, 11vw, 170px); border-top: 1px solid var(--stone); }
+.need-head { display: grid; gap: 10px; margin-bottom: clamp(44px, 5vw, 76px); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stat { display: grid; gap: 14px; align-content: start; padding: 0 clamp(16px, 2vw, 32px); border-left: 1px solid var(--stone); }
+.stat:first-child { padding-left: 0; border-left: 0; }
+.stat .num { font-family: var(--serif); font-weight: 300; font-size: clamp(56px, 6vw, 96px); line-height: 0.9; font-variant-numeric: lining-nums tabular-nums; }
+.stat .num sup { font-size: 0.32em; vertical-align: top; margin-left: 4px; color: var(--taupe); }
+.stat p { margin: 0; }
+.stat .answer { font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.3; color: var(--umber); }
+
+/* session */
+.session { padding-block: clamp(96px, 11vw, 170px); background: var(--umber); color: var(--marble); }
+.session .label { color: color-mix(in srgb, var(--marble) 62%, transparent); }
+.session .lede { color: color-mix(in srgb, var(--marble) 66%, transparent); }
+.session-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(40px, 6vw, 110px); align-items: start; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; }
+.steps li { position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 4px 20px; padding-block: 24px; }
+.steps li::before, .steps li:last-child::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: color-mix(in srgb, var(--marble) 18%, transparent); transform-origin: 0 50%; }
+.steps li::before { top: 0; }
+.steps li:last-child::after { bottom: 0; }
+.steps .n { font-family: var(--serif); font-size: 15px; letter-spacing: 0.2em; color: var(--bronze); padding-top: 8px; font-variant-numeric: lining-nums; }
+.steps h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 2.4vw, 36px); line-height: 1.1; margin: 0; }
+.steps p { margin: 4px 0 0; color: color-mix(in srgb, var(--marble) 66%, transparent); grid-column: 2; }
+.session-figure { position: sticky; top: 120px; display: grid; gap: 22px; }
+
+/* waitlist */
+.waitlist { padding-block: clamp(96px, 12vw, 180px); }
+.waitlist .wrap { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); gap: clamp(40px, 7vw, 120px); align-items: center; }
+.waitlist .arch { aspect-ratio: 3 / 4; max-width: 460px; }
+.wl { display: grid; gap: clamp(22px, 2.6vw, 32px); min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; border: 0; padding: 0; margin: 0; }
+.chips legend { margin-bottom: 12px; padding: 0; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span {
+  display: inline-flex; align-items: center; min-height: 38px; padding: 0 16px;
+  border: 1px solid var(--stone); font-size: 14px; color: var(--taupe); cursor: pointer;
+  transition: border-color 0.4s, color 0.4s, background 0.4s;
+}
+.chip span:hover { border-color: var(--taupe); }
+.chip input:checked + span { border-color: var(--umber); color: var(--umber); background: var(--ivory); }
+.chip input:focus-visible + span { outline: 1px solid var(--bronze); outline-offset: 3px; }
+.field { position: relative; display: flex; }
+.field::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--umber); transform-origin: 0 50%; }
+.field input { flex: 1; min-width: 0; border: 0; background: transparent; padding: 14px 0; font: inherit; font-size: 18px; color: var(--umber); }
+.field input::placeholder { color: var(--taupe); }
+.field input:focus { outline: none; }
+.field .btn { border: 0; min-height: 52px; padding: 0 6px 0 18px; }
+.field .btn::after { display: none; }
+.field .btn:hover { color: var(--bronze); }
+
+/* footer */
+.foot { background: var(--plaster); padding-block: clamp(64px, 8vw, 110px) 32px; }
+.keywords { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--stone); margin-bottom: clamp(48px, 6vw, 80px); }
+.kw { display: grid; gap: 6px; justify-items: center; text-align: center; padding: 26px 12px; border-left: 1px solid var(--stone); }
+.kw:first-child { border-left: 0; }
+.kw .label { color: var(--umber); font-size: 12px; }
+.kw .small { font-family: var(--serif); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 32px; }
+.foot-grid ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.foot-grid a { text-decoration: none; color: var(--taupe); transition: color 0.3s; }
+.foot-grid a:hover { color: var(--umber); }
+.foot-brand .tag { font-family: var(--serif); font-style: italic; font-size: 20px; letter-spacing: 0.24em; color: var(--taupe); margin: 6px 0 18px; }
+.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: clamp(48px, 6vw, 80px); padding-top: 20px; border-top: 1px solid var(--stone); }
+
+/* pre-animation states — only while JS-driven motion is on, so the page is complete without it */
+.js .line-inner { transform: translateY(105%); }
+.js [data-reveal="up"] { opacity: 0; transform: translateY(28px); }
+.js [data-reveal="fade"] { opacity: 0; }
+.js .arch[data-reveal="arch"], .js .tile, .js .ear { clip-path: inset(100% 0% 0% 0%); }
+.js .hero canvas { opacity: 0; }
+.js .features li::before, .js .features li:last-child::after, .js .steps li::before, .js .steps li:last-child::after, .js .field::after { transform: scaleX(0); }
+.js .drawn::before, .js .drawn:last-child::after, .js .field.drawn::after { transform: scaleX(1); transition: transform 1.4s var(--ease); }
+
+/* responsive */
+@media (max-width: 1020px) {
+  .state-list { grid-template-columns: repeat(5, minmax(220px, 1fr)); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; overscroll-behavior-x: contain; }
+  .state { scroll-snap-align: start; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 44px; }
+  .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+  .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .nav a:not(.btn) { display: none; }
+  .brand .label { display: none; }
+  .hero .wrap, .manifesto .wrap, .states-head, .product .wrap, .session-grid, .waitlist .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero-figure { justify-self: start; width: min(78%, 340px); }
+  .session-figure { position: static; }
+  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .board-row { display: contents; }
+  .board .tile { aspect-ratio: 4 / 5; }
+  .board .plate { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+  .keywords { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kw:nth-child(3) { border-left: 0; }
+  .kw:nth-child(n+3) { border-top: 1px solid var(--stone); }
+  .features li { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .stats { grid-template-columns: minmax(0, 1fr); }
+  .stat { padding-left: 0; border-left: 0; }
+  .foot-grid { grid-template-columns: minmax(0, 1fr); }
+  .product-visual { grid-template-columns: minmax(0, 1fr); }
+  .product-visual .ear { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile img, .btn, .btn::after, .top { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top-bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Sensa home">
+      <span class="wordmark">Sensa</span>
+      <span class="label">Personal state intelligence</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#product">Product</a>
+      <a href="#states">States</a>
+      <a href="#session">Session</a>
+      <a class="btn" href="#waitlist">Join the waitlist</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <canvas id="caustics" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="label rule" data-reveal="fade" data-intro>Personal state intelligence</span>
+        <h1 class="display h1" id="hero-title" data-split data-intro>Feel the way<br><i>you want.</i></h1>
+        <p class="lede" data-reveal="up" data-intro>Sensa is a fashion-forward BCI system designed to elevate your body and your life — reading your signals, learning your emotional patterns, and helping you effortlessly transition into the state you desire most.</p>
+        <div class="hero-actions" data-reveal="up" data-intro>
+          <a class="btn solid" href="#waitlist">Join the waitlist <span class="arr">→</span></a>
+          <a class="btn" href="#product">Meet C / Connected</a>
+        </div>
+      </div>
+      <figure class="hero-figure">
+        <div class="arch" data-reveal="arch" data-intro><img src="img/earring.jpg" alt="A woman in profile wearing a silver ear piece in warm light"></div>
+        <figcaption data-reveal="fade" data-intro><span class="label">Presence</span><span class="label">C / 01</span></figcaption>
+      </figure>
+    </div>
+    <div class="hero-meta" data-reveal="fade" data-intro>
+      <div class="wrap">
+        <span class="label">EEG · PPG · Ear stimulation · Sound</span>
+        <span class="label">Restless to calm, in minutes</span>
+        <span class="label">Waitlist open — U.S.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto" aria-label="Brand promise">
+    <div class="wrap">
+      <span class="label rule" data-reveal="fade">Brand promise</span>
+      <div>
+        <div class="display manifesto-text" data-words>
+          <p>Your mind is ready.</p>
+          <p><i>But your body is still stuck in the past.</i></p>
+          <p class="quiet">Stress, brain fog, burnout and poor recovery come down to one thing: you’re not in the right state. Sensa is an easier way to get there.</p>
+        </div>
+        <div class="states-row" aria-label="Five states" data-stagger>
+          <span class="label" data-reveal="up">Calm</span><span class="label" data-reveal="up">Sleep</span><span class="label" data-reveal="up">Focus</span><span class="label" data-reveal="up">Energy</span><span class="label" data-reveal="up">Recovery</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mosaic" aria-labelledby="mosaic-title">
+    <div class="wrap">
+      <div class="mosaic-head">
+        <h2 class="display h2" id="mosaic-title" data-split>The Sensa <i>state of mind.</i></h2>
+        <span class="label" data-reveal="fade">Wellness looks good on you</span>
+      </div>
+      <div class="board">
+        <div class="board-row r1">
+          <figure class="tile" style="flex:2.4"><img src="img/arch.jpg" alt="Stone arches opening onto a calm sea"><figcaption><span class="label rule">Timeless</span></figcaption></figure>
+          <figure class="tile" style="flex:1.9"><img src="img/caustics.jpg" alt="Sunlight rippling through shallow water"><figcaption><span class="label rule">Sensory</span></figcaption></figure>
+          <figure class="tile" style="flex:2.1"><img src="img/sculpt.jpg" alt="Curved limestone in soft light"><figcaption><span class="label rule">Sculptural</span></figcaption></figure>
+          <figure class="tile" style="flex:2.1"><img src="img/leaf.jpg" alt="Leaf shadows on a plaster wall"><figcaption><span class="label rule">Atmosphere</span></figcaption></figure>
+        </div>
+        <div class="board-row r2">
+          <figure class="tile" style="flex:2.9"><img src="img/silk.jpg" alt="Translucent silk moving in the wind"><figcaption><span class="label rule">Refined</span></figcaption></figure>
+          <div class="plate" data-reveal="up">
+            <span class="wordmark">Sensa</span>
+            <p class="tag">abide in me</p>
+            <hr>
+            <span class="label">For a deeper, more intentional life</span>
+          </div>
+          <figure class="tile" style="flex:2.2"><img src="img/bowl.jpg" alt="A carved stone bowl on a stone floor"><figcaption><span class="label rule">Balanced</span></figcaption></figure>
+        </div>
+        <div class="board-row r3">
+          <figure class="tile" style="flex:2.8"><img src="img/neck.jpg" alt="A man’s neck and shoulder in warm light"><figcaption><span class="label rule">Presence</span></figcaption></figure>
+          <figure class="tile" style="flex:2.2"><img src="img/skinlight.jpg" alt="Water caustics falling across skin"><figcaption><span class="label rule">Magnetic</span></figcaption></figure>
+          <figure class="tile" style="flex:2.1"><img src="img/pebble.jpg" alt="A dark pebble resting beside a stone vessel"><figcaption><span class="label rule">Grounded</span></figcaption></figure>
+          <figure class="tile" style="flex:2.9"><img src="img/portico.jpg" alt="A concrete portico over still water and the sea"><figcaption><span class="label rule">Natural</span></figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="states" id="states" aria-labelledby="states-title">
+    <div class="wrap">
+      <div class="states-head">
+        <div style="display:grid;gap:18px">
+          <span class="label rule" data-reveal="fade">Choose your state</span>
+          <h2 class="display h2" id="states-title" data-split>One body.<br><i>A different state.</i></h2>
+        </div>
+        <p class="lede" data-reveal="up">Tell Sensa where you want to be. It responds within limits you control, and you can pause or stop at any moment.</p>
+      </div>
+      <div class="state-list">
+        <article class="state">
+          <div class="arch" data-reveal="arch"><img src="img/water.jpg" alt="Light on moving water"></div>
+          <h3 data-reveal="up">Calm</h3>
+          <p data-reveal="up">More composure when it matters.</p>
+          <p class="small" data-reveal="up">A short reset between high-pressure moments. Slower rhythms and softer sound help your body settle.</p>
+          <div class="spec small" data-reveal="up"><span>8 min</span><span>α 8–12 Hz</span></div>
+        </article>
+        <article class="state">
+          <div class="arch" data-reveal="arch"><img src="img/pool.jpg" alt="A quiet arched room over still water"></div>
+          <h3 data-reveal="up">Sleep</h3>
+          <p data-reveal="up">Start tomorrow feeling ready.</p>
+          <p class="small" data-reveal="up">Wind down before bed with a low-intensity program and a soundscape that fades as you do.</p>
+          <div class="spec small" data-reveal="up"><span>10 min</span><span>θ–δ 1–7 Hz</span></div>
+        </article>
+        <article class="state">
+          <div class="arch" data-reveal="arch"><img src="img/sphere.jpg" alt="A glass sphere catching sunlight on stone"></div>
+          <h3 data-reveal="up">Focus</h3>
+          <p data-reveal="up">Feel ready to engage.</p>
+          <p class="small" data-reveal="up">Clear the fog before deep work, a pitch or a decision. Brighter sound, a crisper rhythm.</p>
+          <div class="spec small" data-reveal="up"><span>6 min</span><span>β 13–20 Hz</span></div>
+        </article>
+        <article class="state">
+          <div class="arch" data-reveal="arch"><img src="img/seastone.jpg" alt="Sunlit rock beside glittering sea"></div>
+          <h3 data-reveal="up">Energy</h3>
+          <p data-reveal="up">Lift yourself when the day drags.</p>
+          <p class="small" data-reveal="up">A short, brighter session for the afternoon slump or before a workout.</p>
+          <div class="spec small" data-reveal="up"><span>5 min</span><span>β 15–25 Hz</span></div>
+        </article>
+        <article class="state">
+          <div class="arch" data-reveal="arch"><img src="img/flower.jpg" alt="Close-up of white petals"></div>
+          <h3 data-reveal="up">Recovery</h3>
+          <p data-reveal="up">Let go when the work is done.</p>
+          <p class="small" data-reveal="up">After a workout, a flight or a long day, help your body catch up with where you are.</p>
+          <div class="spec small" data-reveal="up"><span>10 min</span><span>HRV ↑ α 8–10 Hz</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="product" id="product" aria-labelledby="product-title">
+    <div class="wrap">
+      <div class="product-visual">
+        <div class="pedestal" data-reveal="up">
+          <span class="label">C / Connected</span>
+          <img class="bud" src="img/product-bud-c.webp" alt="Sensa C / Connected earpiece in polished silver">
+        </div>
+        <div class="ear"><img src="img/product-ear.webp" alt="Sensa C / Connected worn in the ear"></div>
+      </div>
+      <div class="product-copy">
+        <span class="label rule" data-reveal="fade">Introducing</span>
+        <h2 class="display h2" id="product-title" data-split>Sensa <i>C / Connected.</i></h2>
+        <p class="lede" data-reveal="up">One sculpted in-ear piece. Stimulation at the concha, sensing in the ear canal, sound throughout — designed to disappear into your day.</p>
+        <ul class="features">
+          <li><span class="label" data-reveal="up">EEG / PPG</span><p data-reveal="up">Sensors in the ear tip read brain-activity references and pulse variability, combined with how you say you feel.</p></li>
+          <li><span class="label" data-reveal="up">Stimulation</span><p data-reveal="up">Skin-contact electrodes at the concha deliver gentle stimulation, while sound supports regulation.</p></li>
+          <li><span class="label" data-reveal="up">Everyday</span><p data-reveal="up">One sculpted earpiece. Comfort and stable contact come first, so it fits into real life.</p></li>
+        </ul>
+        <div class="price" data-reveal="up">
+          <div style="display:grid;gap:6px"><b>$599</b><span class="label">Expected price</span></div>
+          <a class="btn solid" href="#waitlist">Reserve your place <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="need" aria-labelledby="need-title">
+    <div class="wrap">
+      <div class="need-head">
+        <span class="label rule" data-reveal="fade">Why now</span>
+        <h2 class="display h2" id="need-title" data-split>Life moves forward.<br><i>Your body needs to catch up.</i></h2>
+      </div>
+      <div class="stats">
+        <div class="stat" data-reveal="up"><span class="label">Stress &amp; tension</span><div class="num"><span data-count="50">50</span><sup>%</sup></div><p>of U.S. employees report feeling stressed every day.</p><p class="small">Gallup, 3-yr average through 2025</p><p class="answer">More composure when it matters.</p></div>
+        <div class="stat" data-reveal="up"><span class="label">Exhaustion</span><div class="num"><span data-count="31">31</span><sup>%</sup></div><p>of workers feel emotionally exhausted by work stress.</p><p class="small">APA Work in America, 2023</p><p class="answer">Let go when the work is done.</p></div>
+        <div class="stat" data-reveal="up"><span class="label">Engagement</span><div class="num"><span data-count="26">26</span><sup>%</sup></div><p>lacked the motivation to do their best because of work.</p><p class="small">APA, 2023</p><p class="answer">Feel ready to engage.</p></div>
+        <div class="stat" data-reveal="up"><span class="label">Rest</span><div class="num"><span data-count="30.5">30.5</span><sup>%</sup></div><p>of U.S. adults average less than seven hours of sleep.</p><p class="small">CDC / NCHS, 2026</p><p class="answer">Start the day feeling ready.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="session" id="session" aria-labelledby="session-title">
+    <div class="wrap session-grid">
+      <div class="session-figure">
+        <span class="label rule" data-reveal="fade">How a session works</span>
+        <h2 class="display h2" id="session-title" data-split>One simple choice.<br><i>A better state of you.</i></h2>
+        <p class="lede" data-reveal="up">Five to ten minutes, designed to fit between the meeting and the moment that matters. Conversation is optional; a tap is always enough.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="n" data-reveal="up">01</span><h3 data-reveal="up">Sense</h3><p data-reveal="up">Ear-worn EEG and PPG read brain and pulse signals, combined with a quick note on how you feel.</p></li>
+        <li><span class="n" data-reveal="up">02</span><h3 data-reveal="up">Choose</h3><p data-reveal="up">Pick a target state. Sensa offers an informed suggestion, and the choice is always yours.</p></li>
+        <li><span class="n" data-reveal="up">03</span><h3 data-reveal="up">Shift</h3><p data-reveal="up">Gentle ear stimulation and adaptive sound begin, with the change shown in real time.</p></li>
+        <li><span class="n" data-reveal="up">04</span><h3 data-reveal="up">Learn</h3><p data-reveal="up">Before-and-after signals and your feedback shape the next session.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="waitlist" id="waitlist" aria-labelledby="wl-title">
+    <div class="wrap">
+      <div class="arch" data-reveal="arch"><img src="img/hand.jpg" alt="A hand touching the surface of calm water"></div>
+      <div class="wl">
+        <span class="label rule" data-reveal="fade">Waitlist open — U.S.</span>
+        <h2 class="display h2" id="wl-title" data-split>Be first <i>to feel it.</i></h2>
+        <form id="wl-form" class="wl" novalidate>
+          <fieldset class="chips" data-reveal="up">
+            <legend class="label">Which states matter most to you?</legend>
+            <label class="chip"><input type="checkbox" id="s-calm" name="states" value="Calm" checked><span>Calm</span></label>
+            <label class="chip"><input type="checkbox" id="s-sleep" name="states" value="Sleep"><span>Sleep</span></label>
+            <label class="chip"><input type="checkbox" id="s-focus" name="states" value="Focus"><span>Focus</span></label>
+            <label class="chip"><input type="checkbox" id="s-energy" name="states" value="Energy"><span>Energy</span></label>
+            <label class="chip"><input type="checkbox" id="s-recovery" name="states" value="Recovery"><span>Recovery</span></label>
+          </fieldset>
+          <div class="field" data-reveal="up">
+            <label for="wl-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+            <input id="wl-email" type="email" placeholder="Your email address" autocomplete="email" required>
+            <button class="btn" type="submit">Join <span class="arr">→</span></button>
+          </div>
+          <p class="small" id="wl-note" data-reveal="up">Expected $599 · Optional Sensa membership · Launch news only, no spam.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="keywords">
+      <div class="kw" data-reveal="up"><span class="label">Grounded</span><span class="small">Stable · Confident</span></div>
+      <div class="kw" data-reveal="up"><span class="label">Magnetic</span><span class="small">Sensual · Intentional</span></div>
+      <div class="kw" data-reveal="up"><span class="label">Sculptural</span><span class="small">Bold · Refined</span></div>
+      <div class="kw" data-reveal="up"><span class="label">Natural</span><span class="small">Pure · Elemental</span></div>
+    </div>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="wordmark" style="font-size:44px">Sensa</span>
+        <p class="tag">abide in me</p>
+        <p class="small" style="max-width:30em;margin:0">Sensa is building personal state intelligence: sensing, stimulation and sound in one ear-worn system.</p>
+      </div>
+      <div><span class="label">Product</span><ul><li><a href="#product">C / Connected</a></li><li><a href="#session">How a session works</a></li><li><a href="#states">States</a></li></ul></div>
+      <div><span class="label">Science</span><ul><li><a href="https://wearsensa.com/#science">Research foundation</a></li><li><a href="https://wearsensa.com/#validation">Validation plan</a></li><li><a href="https://wearsensa.com/#research">Safety &amp; control</a></li></ul></div>
+      <div><span class="label">Company</span><ul><li><a href="#waitlist">Join the waitlist</a></li><li><a href="mailto:wearsensa@gmail.com">wearsensa@gmail.com</a></li><li><a href="mailto:wearsensa@gmail.com?subject=Investors%20%26%20partners">Investors &amp; partners</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <span class="small">© 2026 Sensa. Device in development; not a medical device.</span>
+      <span class="small">Prototype — marble direction · <a href="https://wearsensa.com">wearsensa.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+// Waitlist: prototype only, nothing is sent
+(() => {
+  const form = document.getElementById("wl-form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("wl-email");
+    const note = document.getElementById("wl-note");
+    if (!email.value || !email.checkValidity()) {
+      note.textContent = "Enter a valid email address to join the waitlist.";
+      email.focus();
+      return;
+    }
+    note.textContent = "Prototype: on the live site this adds " + email.value + " to the waitlist.";
+  });
+})();
+
+// Hero: warm water caustics drifting across limestone
+const caustics = (() => {
+  const canvas = document.getElementById("caustics");
+  const gl = canvas.getContext("webgl", { antialias: false, premultipliedAlpha: false });
+  if (!gl) return null;
+  const still = !document.documentElement.classList.contains("js");
+  const vs = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+  const fs = `
+precision highp float;
+uniform vec2 res; uniform float t;
+#define TAU 6.28318530718
+float caustic(vec2 uv, float time){
+  vec2 p = mod(uv * TAU, TAU) - 250.0;
+  vec2 i = p; float c = 1.0; float inten = 0.005;
+  for (int n = 0; n < 5; n++) {
+    float tt = time * (1.0 - (3.5 / float(n + 1)));
+    i = p + vec2(cos(tt - i.x) + sin(tt + i.y), sin(tt - i.y) + cos(tt + i.x));
+    c += 1.0 / length(vec2(p.x / (sin(i.x + tt) / inten), p.y / (cos(i.y + tt) / inten)));
+  }
+  c /= 5.0; c = 1.17 - pow(c, 1.4);
+  return pow(abs(c), 8.0);
+}
+void main(){
+  vec2 uv = gl_FragCoord.xy / res;
+  vec2 q = vec2(uv.x * res.x / res.y, uv.y);
+  float time = t * 0.16 + 23.0;
+  float a = caustic(q * 0.62 + vec2(0.0, time * 0.012), time);
+  float b = caustic(q * 0.95 + vec2(0.37, 0.11), time * 0.8 + 4.0);
+  float light = a * 0.65 + b * 0.35;
+  vec3 lo = vec3(0.871, 0.839, 0.796);
+  vec3 hi = vec3(0.925, 0.902, 0.867);
+  float g = smoothstep(-0.2, 1.2, uv.x * 0.55 + uv.y * 0.75);
+  vec3 col = mix(lo, hi, g);
+  float mask = smoothstep(0.15, 0.95, uv.x) * smoothstep(0.0, 0.75, uv.y) * 0.85 + 0.15;
+  col += vec3(1.0, 0.97, 0.91) * clamp(light, 0.0, 1.4) * 0.28 * mask;
+  float n = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+  col += (n - 0.5) * 0.012;
+  gl_FragColor = vec4(col, 1.0);
+}`;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+  gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, "p");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const uRes = gl.getUniformLocation(prog, "res"), uT = gl.getUniformLocation(prog, "t");
+  const scale = Math.min(window.devicePixelRatio || 1, 1.25) * 0.75;
+  const draw = (ms) => { gl.uniform1f(uT, ms / 1000); gl.drawArrays(gl.TRIANGLES, 0, 3); };
+  const size = () => {
+    const r = canvas.getBoundingClientRect();
+    canvas.width = Math.max(2, Math.round(r.width * scale));
+    canvas.height = Math.max(2, Math.round(r.height * scale));
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (still) draw(0);
+  };
+  size();
+  window.addEventListener("resize", size);
+  if (still) return canvas;
+  let visible = true;
+  const start = performance.now();
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(canvas);
+  const loop = (now) => { if (visible && !document.hidden) draw(now - start); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+  return canvas;
+})();
+
+// Motion
+(() => {
+  const root = document.documentElement;
+  if (!root.classList.contains("js")) return;
+  if (!window.gsap || !window.ScrollTrigger) { root.classList.remove("js"); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  const ease = "expo.out";
+
+  // Smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in step
+  let lenis = null;
+  if (window.Lenis) {
+    lenis = new Lenis({ duration: 1.25, smoothWheel: true });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const id = a.getAttribute("href");
+      const target = id === "#top" ? 0 : document.querySelector(id);
+      if (target === null) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { offset: -72, duration: 1.6 });
+      else window.scrollTo({ top: target === 0 ? 0 : target.getBoundingClientRect().top + scrollY - 72, behavior: "smooth" });
+    });
+  });
+
+  // Header tucks away on the way down, returns on the way up
+  const bar = document.getElementById("top-bar");
+  let lastY = 0;
+  ScrollTrigger.create({
+    start: 0, end: "max",
+    onUpdate: (s) => {
+      const y = s.scroll();
+      bar.classList.toggle("is-hidden", y > 240 && y > lastY);
+      lastY = y;
+    },
+  });
+
+  // Split headings into masked lines at each <br>
+  document.querySelectorAll("[data-split]").forEach((el) => {
+    el.innerHTML = el.innerHTML.split(/<br\s*\/?>/i)
+      .map((part) => `<span class="line"><span class="line-inner">${part.trim()}</span></span>`).join("");
+  });
+
+  // Manifesto words start faint and fill in as you read down
+  document.querySelectorAll("[data-words] p").forEach((p) => {
+    const host = p.querySelector("i") || p;
+    host.innerHTML = host.textContent.split(" ").map((w) => `<span class="w">${w}</span>`).join(" ");
+  });
+
+  // Intro sequence
+  const intro = gsap.timeline({ paused: true, defaults: { ease } });
+  intro
+    .to(".hero [data-reveal='fade']", { opacity: 1, duration: 1.4, stagger: 0.1 }, 0.15)
+    .to(".hero .line-inner", { yPercent: 0, y: 0, duration: 1.7, stagger: 0.14 }, 0.2)
+    .to(".hero [data-reveal='up']", { opacity: 1, y: 0, duration: 1.5, stagger: 0.12 }, 0.6)
+    .to(".hero .arch", { clipPath: "inset(0% 0% 0% 0%)", duration: 2, ease: "expo.inOut" }, 0.1)
+    .fromTo(".hero .arch img", { scale: 1.35 }, { scale: 1.12, duration: 2.6 }, 0.1);
+  gsap.set(".hero .line-inner", { yPercent: 105, y: 0 });
+  if (caustics) intro.to(caustics, { opacity: 1, duration: 2.4, ease: "power2.out" }, 0);
+  else gsap.set(".hero canvas", { opacity: 1 });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => intro.play());
+
+  const outsideHero = (sel) => [...document.querySelectorAll(sel)].filter((el) => !el.closest(".hero"));
+
+  // Headlines rise line by line
+  outsideHero("[data-split]").forEach((el) => {
+    const lines = el.querySelectorAll(".line-inner");
+    gsap.set(lines, { yPercent: 105, y: 0 });
+    gsap.to(lines, { yPercent: 0, duration: 1.6, ease, stagger: 0.12, scrollTrigger: { trigger: el, start: "top 88%", once: true } });
+  });
+
+  // Text and small blocks float up in reading order
+  ScrollTrigger.batch(outsideHero("[data-reveal='up']"), {
+    start: "top 90%", once: true,
+    onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 1.3, ease, stagger: 0.08 }),
+  });
+  ScrollTrigger.batch(outsideHero("[data-reveal='fade']"), {
+    start: "top 92%", once: true,
+    onEnter: (els) => gsap.to(els, { opacity: 1, duration: 1.6, ease: "power2.out", stagger: 0.1 }),
+  });
+
+  // Arched windows open from the floor up, the photo settling inside
+  outsideHero(".arch[data-reveal='arch']").forEach((el) => {
+    const img = el.querySelector("img");
+    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 86%", once: true } });
+    tl.to(el, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut" })
+      .fromTo(img, { scale: 1.35 }, { scale: 1.12, duration: 2.4, ease }, 0);
+  });
+
+  // Gentle parallax inside every arch
+  document.querySelectorAll(".arch img").forEach((img) => {
+    gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } });
+  });
+
+  // Moodboard wall: tiles open row by row
+  ScrollTrigger.batch(".tile", {
+    start: "top 90%", once: true,
+    onEnter: (els) => gsap.to(els, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.6, ease: "expo.inOut", stagger: 0.09 }),
+  });
+
+  // Manifesto: words brighten with the scroll
+  gsap.utils.toArray("[data-words]").forEach((block) => {
+    gsap.fromTo(block.querySelectorAll(".w"), { opacity: 0.16 }, {
+      opacity: 1, ease: "none", stagger: 0.05,
+      scrollTrigger: { trigger: block, start: "top 78%", end: "bottom 45%", scrub: 0.6 },
+    });
+  });
+
+  // Product: ear photo opens, earpiece floats and drifts against the scroll
+  const ear = document.querySelector(".product-visual .ear");
+  if (ear) gsap.to(ear, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.8, ease: "expo.inOut", delay: 0.2, scrollTrigger: { trigger: ear, start: "top 86%", once: true } });
+  const bud = document.querySelector(".pedestal .bud");
+  if (bud) {
+    gsap.to(bud, { y: -10, rotate: -2, duration: 4.5, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    gsap.fromTo(bud, { yPercent: 10 }, { yPercent: -10, ease: "none", scrollTrigger: { trigger: ".pedestal", start: "top bottom", end: "bottom top", scrub: true } });
+  }
+
+  // Hairlines draw across
+  ScrollTrigger.batch(".features li, .steps li, .field", {
+    start: "top 92%", once: true,
+    onEnter: (els) => els.forEach((el, i) => setTimeout(() => el.classList.add("drawn"), i * 120)),
+  });
+
+  // Figures count up
+  document.querySelectorAll("[data-count]").forEach((el) => {
+    const target = parseFloat(el.dataset.count);
+    const decimals = (el.dataset.count.split(".")[1] || "").length;
+    const obj = { v: 0 };
+    el.textContent = (0).toFixed(decimals);
+    gsap.to(obj, {
+      v: target, duration: 2.2, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 90%", once: true },
+      onUpdate: () => { el.textContent = obj.v.toFixed(decimals); },
+    });
+  });
+
+  // Hero copy eases back as the page lifts away
+  gsap.to(".hero-copy", { yPercent: -12, opacity: 0.35, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+  window.addEventListener("load", () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

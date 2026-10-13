@@ -2,6 +2,7 @@ name: Redirect GitHub Pages to wearsensa.com
 
 # The site now lives at https://wearsensa.com (Cloudflare). This keeps any old
 # samlee815.github.io/sensa links working by sending them to the same path there.
+# Exception: /prototype/ serves the static design prototype from the repo's prototype/ folder.
 on:
   push:
     branches: [main]
@@ -23,6 +24,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
       - name: Build redirect page
         run: |
           mkdir -p site
@@ -37,6 +39,8 @@ jobs:
           <p>Sensa has moved to <a href="https://wearsensa.com/">wearsensa.com</a>.</p>
           HTML
           cp site/index.html site/404.html
+      - name: Add design prototype
+        run: cp -R prototype site/prototype
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
