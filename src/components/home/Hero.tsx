@@ -116,9 +116,8 @@ export default function Hero() {
             </h1>
             <div className="hero-row" data-reveal="intro">
               <p className="lede">
-                Sensa is a fashion-forward BCI system designed to elevate your body and your life — reading your
-                signals, learning your emotional patterns, and helping you effortlessly transition into the state you
-                desire most.
+                Sensa is an AI-powered mind-body companion that helps you get things done, understands your emotions,
+                and actively regulates your body — so you can feel the way you should feel.
               </p>
               <div className="hero-actions">
                 <Button href="#waitlist">Join the waitlist</Button>
