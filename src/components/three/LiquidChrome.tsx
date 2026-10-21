@@ -7,7 +7,11 @@ import { SIMPLEX } from "@/lib/glsl";
 export type ChromeDrive = {
   progress: number; // 0 → 1 as the hero scrolls away
   intro: number; // 0 → 1 once the page is revealed
+  settle: number; // 0 → 1 as the opening agitation calms down, before the headline appears
 };
+
+// How calm the liquid looks once the opening has settled (scrolling takes it the rest of the way)
+export const SETTLED_CALM = 0.6;
 
 const vertex = /* glsl */ `
 uniform float uTime;
@@ -123,6 +127,7 @@ function Blob({ drive, tint }: { drive: MutableRefObject<ChromeDrive>; tint: str
   const mouse = useRef(new THREE.Vector2());
   const target = useRef(new THREE.Vector2());
   const nm = useMemo(() => new THREE.Matrix3(), []);
+  const flow = useRef(0);
   const isMobile = size.width < 860;
 
   const uniforms = useMemo(
@@ -162,14 +167,18 @@ function Blob({ drive, tint }: { drive: MutableRefObject<ChromeDrive>; tint: str
     const d = drive.current;
     const p = d.progress;
     const t = state.clock.elapsedTime;
+    const agitation = 1 - d.settle;
+    // the opening calms the liquid part of the way; scrolling carries it to a still stone
+    const calm = Math.max(p, d.settle * SETTLED_CALM);
+    flow.current += dt * (1 + agitation * 2.6); // agitated liquid churns faster
     mouse.current.lerp(target.current, 0.045);
-    uniforms.uTime.value = t;
+    uniforms.uTime.value = flow.current;
     uniforms.uMouse.value.copy(mouse.current);
-    uniforms.uCalm.value = p;
+    uniforms.uCalm.value = calm;
     uniforms.uIntro.value = Math.min(1, d.intro * 1.4);
-    // restless → calm: amplitude settles as the visitor scrolls
-    uniforms.uAmp.value = THREE.MathUtils.lerp(0.21, 0.05, THREE.MathUtils.smoothstep(p, 0, 0.85)) + (1 - d.intro) * 0.12;
-    uniforms.uFreq.value = THREE.MathUtils.lerp(0.78, 0.62, p);
+    uniforms.uAmp.value =
+      THREE.MathUtils.lerp(0.21, 0.05, THREE.MathUtils.smoothstep(calm, 0, 0.85)) + agitation * 0.24 + (1 - d.intro) * 0.12;
+    uniforms.uFreq.value = THREE.MathUtils.lerp(0.78, 0.62, calm) + agitation * 0.32;
 
     const g = group.current!;
     const baseR = Math.min(viewport.height * 0.25, viewport.width * (isMobile ? 0.26 : 0.17));
@@ -185,14 +194,14 @@ function Blob({ drive, tint }: { drive: MutableRefObject<ChromeDrive>; tint: str
     m.rotation.x = mouse.current.y * -0.25;
     m.rotation.z = mouse.current.x * 0.12;
     // pebble proportion, relaxing toward a smooth stone as it calms
-    m.scale.set(THREE.MathUtils.lerp(1.12, 1.28, p), THREE.MathUtils.lerp(0.98, 0.82, p), 1.0);
+    m.scale.set(THREE.MathUtils.lerp(1.12, 1.28, calm), THREE.MathUtils.lerp(0.98, 0.82, calm), 1.0);
     m.updateMatrixWorld();
     nm.getNormalMatrix(m.matrixWorld);
     uniforms.uNormalWorld.value.copy(nm);
 
     ring1.current!.rotation.set(1.28 + Math.sin(t * 0.2) * 0.05, 0.1, t * 0.05);
     ring2.current!.rotation.set(1.05, -0.35 + Math.sin(t * 0.15) * 0.08, -t * 0.035);
-    const ringOpacity = easeOut(d.intro) * (0.35 + p * 0.5);
+    const ringOpacity = easeOut(d.intro) * (0.35 + calm * 0.5);
     (ring1.current!.material as THREE.MeshBasicMaterial).opacity = ringOpacity;
     (ring2.current!.material as THREE.MeshBasicMaterial).opacity = ringOpacity * 0.45;
     const a = t * 0.35;

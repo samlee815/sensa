@@ -13,7 +13,7 @@ const STATES = ["Restless", "Unsettled", "Settling", "Steady", "Calm"];
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
-  const drive = useRef<ChromeDrive>({ progress: 0, intro: 0 });
+  const drive = useRef<ChromeDrive>({ progress: 0, intro: 0, settle: 0 });
   const stateRef = useRef<HTMLElement>(null);
   const cohRef = useRef<HTMLElement>(null);
   const meterRef = useRef<HTMLElement>(null);
@@ -24,17 +24,28 @@ export default function Hero() {
       const title = root.current!.querySelector(".hero-title")!;
       let split: SplitText | null = null;
 
+      // The readout follows the liquid: restless at first sight, calm once it settles (or as the hero scrolls away)
+      const syncReadout = () => {
+        const c = Math.max(drive.current.progress, drive.current.settle);
+        const i = Math.min(STATES.length - 1, Math.floor(c * STATES.length * 0.999 + 0.0001));
+        if (stateRef.current && stateRef.current.textContent !== STATES[i]) stateRef.current.textContent = STATES[i];
+        if (cohRef.current) cohRef.current.textContent = String(Math.round(14 + c * 78)).padStart(2, "0") + "%";
+        if (meterRef.current) meterRef.current.style.transform = `scaleX(${0.14 + c * 0.78})`;
+      };
+
       // contextSafe: the callback fires from the preloader's timeline, so bind selectors/animations to this component's scope.
       const off = onReady(contextSafe!(() => {
         gsap.set("[data-reveal='intro']", { visibility: "visible" });
         split = SplitText.create(title, { type: "lines", mask: "lines", linesClass: "split-line" });
+        // First the liquid arrives agitated and calms down; only then does the message appear
         const tl = gsap.timeline({ delay: 0.05 });
-        tl.to(drive.current, { intro: 1, duration: 3.2, ease: "expo.out" }, 0)
-          .from(split.lines, { yPercent: 115, rotate: 3, transformOrigin: "0 0", duration: 1.6, ease: "expo.out", stagger: 0.12 }, 0.15)
-          .from(".hero-eyebrow", { autoAlpha: 0, y: 16, duration: 1.2, ease: "expo.out" }, 0.1)
-          .from(".hero-row > *", { autoAlpha: 0, y: 30, duration: 1.4, ease: "expo.out", stagger: 0.12 }, 0.55)
-          .from(".hero-hud, .hero-readout", { autoAlpha: 0, duration: 1.4, ease: "power2.out" }, 0.9)
-          .from(".hero-grid", { autoAlpha: 0, scale: 1.08, duration: 2.4, ease: "expo.out" }, 0);
+        tl.to(drive.current, { intro: 1, duration: 1.6, ease: "expo.out" }, 0)
+          .from(".hero-grid", { autoAlpha: 0, scale: 1.08, duration: 2.4, ease: "expo.out" }, 0)
+          .from(".hero-hud, .hero-readout", { autoAlpha: 0, duration: 1, ease: "power2.out" }, 0.2)
+          .to(drive.current, { settle: 1, duration: 2.8, ease: "power2.inOut", onUpdate: syncReadout }, 0.3)
+          .from(".hero-eyebrow", { autoAlpha: 0, y: 16, duration: 1.2, ease: "expo.out" }, 2.3)
+          .from(split.lines, { yPercent: 115, rotate: 3, transformOrigin: "0 0", duration: 1.6, ease: "expo.out", stagger: 0.12 }, 2.45)
+          .from(".hero-row > *", { autoAlpha: 0, y: 30, duration: 1.4, ease: "expo.out", stagger: 0.12 }, 2.9);
       }));
 
       ScrollTrigger.create({
@@ -43,12 +54,8 @@ export default function Hero() {
         end: "bottom bottom",
         scrub: true,
         onUpdate: (s) => {
-          const p = s.progress;
-          drive.current.progress = p;
-          const i = Math.min(STATES.length - 1, Math.floor(p * STATES.length * 0.999 + 0.0001));
-          if (stateRef.current && stateRef.current.textContent !== STATES[i]) stateRef.current.textContent = STATES[i];
-          if (cohRef.current) cohRef.current.textContent = String(Math.round(14 + p * 78)).padStart(2, "0") + "%";
-          if (meterRef.current) meterRef.current.style.transform = `scaleX(${0.14 + p * 0.78})`;
+          drive.current.progress = s.progress;
+          syncReadout();
         },
       });
 
