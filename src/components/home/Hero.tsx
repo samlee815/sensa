@@ -108,10 +108,10 @@ export default function Hero() {
               Personal State Intelligence
             </span>
             <h1 className="h-xxl hero-title" data-reveal="intro">
-              Feel the way
+              Always be there
               <br />
               <span className="line-2">
-                you <em>want.</em>
+                for <em>you.</em>
               </span>
             </h1>
             <div className="hero-row" data-reveal="intro">

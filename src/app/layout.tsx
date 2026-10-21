@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "Sensa is an AI-powered mind-body companion that helps you get things done, understands your emotions, and actively regulates your body — so you can feel the way you should feel.",
   openGraph: {
     title: "Sensa — Personal State Intelligence",
-    description: "Feel the way you want. Anytime, anywhere.",
+    description: "Always be there for you. Anytime, anywhere.",
     images: ["/img/stones.webp"],
   },
 };
