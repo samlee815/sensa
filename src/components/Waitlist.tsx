@@ -103,7 +103,7 @@ export default function Waitlist() {
         </div>
       )}
       <p className="fine" aria-live="polite">
-        {err || "Expected $599 · Optional Sensa+ membership. No spam — launch news only."}
+        {err || "Optional Sensa+ membership. No spam — launch news only."}
       </p>
     </form>
   );

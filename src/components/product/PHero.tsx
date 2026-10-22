@@ -112,10 +112,6 @@ export default function PHero() {
                 <b>5–10 min</b>
                 <span>Planned session</span>
               </div>
-              <div>
-                <b>$599</b>
-                <span>Expected price</span>
-              </div>
             </div>
             <Button href="#waitlist">Join the waitlist</Button>
           </div>

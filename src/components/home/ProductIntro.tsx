@@ -40,10 +40,6 @@ export default function ProductIntro() {
             </div>
             <div className="pintro-price" data-reveal="fade">
               <Button href="/#technology">See the technology</Button>
-              <div className="price">
-                Expected price
-                <b>$599</b>
-              </div>
             </div>
           </div>
 
